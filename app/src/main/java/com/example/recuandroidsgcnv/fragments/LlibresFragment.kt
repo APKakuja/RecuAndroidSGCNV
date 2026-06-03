@@ -11,6 +11,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recuandroidsgcnv.R
 import com.example.recuandroidsgcnv.data.LlibresRepository
+import com.example.recuandroidsgcnv.models.Estat
 import com.example.recuandroidsgcnv.models.Genere
 import com.google.android.material.chip.Chip
 
@@ -31,12 +32,34 @@ class LlibresFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_llibres, container, false)
     }
 
+
+    companion object {
+
+        private const val TITOL_BUNDLE = "titol_bundle"
+        private const val AUTOR_BUNDLE = "autor_bundle"
+        private const val GENERE_BUNDLE = "genere_bundle"
+        private const val ANY_BUNDLE = "any_bundle"
+        private const val ESTAT_BUNDLE = "estat_bundle"
+
+        @JvmStatic
+        fun newInstance(titol: String, autor: String, genere: Genere, any: Int, estat: Estat ) =
+            LlibresFragment().apply {
+                arguments = Bundle().apply {
+                    putString(TITOL_BUNDLE, titol)
+                    putString(AUTOR_BUNDLE, autor)
+                    genere
+                    putInt(ANY_BUNDLE, any)
+                    estat
+                }
+            }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         toolbar = view.findViewById(R.id.toolbar)
         recyclerView = view.findViewById(R.id.recyclerview)
-        chipGroup = view.findViewById(R.id.chipgroup)
+        chipGroup = view.findViewById(R.id.chipGroup)
 
         setupRecyclerView()
         setupChips()
@@ -44,11 +67,22 @@ class LlibresFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        //TODO: fer el setup del recycler view
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = LlibresAdapter { llibres ->
+            val bundle = Bundle().apply { putInt("llibre_id", llibres.id)
+            }
+            val fragment = LlibresFragment()
+            fragment.arguments = bundle
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+        recyclerView.adapter = adapter
     }
 
     private fun setupChips() {
-        val chipTots: Chip = view?.findViewById(R.id.chipgroup) ?: return
+        val chipTots: Chip = view?.findViewById(R.id.chipTots) ?: return
         val chipNovella: Chip = view?.findViewById(R.id.chipNovella) ?: return
         val chipAssaig: Chip = view?.findViewById(R.id.chipAssaig) ?: return
         val chipComic: Chip = view?.findViewById(R.id.chipComic) ?: return

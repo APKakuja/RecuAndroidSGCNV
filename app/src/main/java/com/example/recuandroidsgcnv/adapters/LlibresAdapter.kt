@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recuandroidsgcnv.R
 import com.example.recuandroidsgcnv.models.Llibre
 
-class LlibresAdapter : RecyclerView.Adapter<LlibreViewHolder>() {
+class LlibresAdapter(private val onTascaClick: (Llibre) -> Unit) : RecyclerView.Adapter<LlibreViewHolder>() {
 
     private var llibres = listOf<Llibre>()
 
@@ -22,11 +22,13 @@ class LlibresAdapter : RecyclerView.Adapter<LlibreViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: LlibreViewHolder, position: Int) {
-        holder.renderitza(llibres[position])
+        val llibre = llibres[position]
+        holder.renderitza(llibre)
+        holder.itemView.setOnClickListener {
+            onTascaClick(llibre)
+        }
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = llibres.size
 
 }
