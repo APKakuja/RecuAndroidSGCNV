@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:id="@+id/toolbar"
+        app:title="La meva biblioteca"
+        app:titleTextColor="@android:color/white"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
+        <com.google.android.material.chip.ChipGroup
+            app:checkedChip="@id/chipgroup"
+            app:singleSelection="true"
+            android:layout_height="wrap_content" android:layout_width="match_parent">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipgroup"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tots" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipNovella"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Novel·la" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAssaig"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Assaig" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipComic"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Còmic" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:clipToPadding="false"
+            android:padding="8dp"
+            android:layout_height="0dp"
+            android:layout_width="match_parent"
+            android:layout_weight="1" />
+
+</LinearLayout>
